@@ -1,0 +1,40 @@
+name: sync github repo to gitee
+
+on: push
+
+jobs:
+
+  mirror-sync:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Mirror the Github repo(s) to Gitee.
+        uses: Yikun/hub-mirror-action@master
+
+        with:
+
+          # 当前 Github 用户
+          src: 'github/${{ github.repository_owner }}'
+          # 需要同步到 Gitee 用户下, 如果 Gitee 和 Github 事同名账户则不需要修改.
+          # 否则需要将 ${{ github.repository_owner }} 替换为具体的 Gitee 用户.
+          dst: 'gitee/${{ github.repository_owner }}'
+
+          # Gitee公钥对应的私钥, https://gitee.com/profile/sshkeys
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          # Gitee对应的用于创建仓库的token, https://gitee.com/profile/personal_access_tokens
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+
+          # 当前仓库属于用户(user) 还是属于组织(org), 默认为 user
+          account_type: org
+
+          # 默认会同步 account_type 下的所有仓库, 打开下面配置只同步当前仓库
+          static_list: ${{ github.event.repository.name }}
+
+          # 强制推送
+          # force_update: true
