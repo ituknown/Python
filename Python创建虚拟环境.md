@@ -9,11 +9,17 @@ python -m venv venv  # 创建新的虚拟环境
 # python3 -m pip install --upgrade pip setuptools
 ```
 
-如果你的项目本身已创建虚拟环境，但是存在问题。可以先删除虚拟环境：
+| **Note**                        |
+| :------------------------------ |
+| venv 是约定习俗的虚拟环境文件名，你也可以使用其他文件名。 |
+
+如果你的项目本身已创建虚拟环境，但是存在问题。可以先删除当前虚拟环境，之后重新创建：
 
 ```bash
 deactivate    # 如果你当前处于虚拟环境中
 rm -rf venv   # 删除虚拟环境
+
+python -m venv venv # 重新创建虚拟环境
 ```
 
 # 激活虚拟环境
@@ -42,7 +48,7 @@ Windows 环境执行激活命令时通常会遇到类似下面的错误：
     + FullyQualifiedErrorId : UnauthorizedAccess
 ```
 
-原因是 PowerShell 执行策略禁止运行脚本。只需要执行如下步骤即可：
+原因是 PowerShell 执行策略禁止运行脚本，只需要修改执行策略解决：
 
 1、**以管理员身份运行 PowerShell：**
 
@@ -50,20 +56,23 @@ Windows 环境执行激活命令时通常会遇到类似下面的错误：
 
 2、**查看当前执行策略：**
 
-  ```cmd
-  Get-ExecutionPolicy
-  ```
+```cmd
+Get-ExecutionPolicy
+```
 
-  如果显示 Restricted，表示不允许任何脚本运行。
+如果显示 Restricted，表示不允许任何脚本运行。
 
 3、**设置执行策略：**
 
   运行下面的命令将执行策略修改为 RemoteSigned 即可：
 
-  ```cmd
-  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-  ```
+```cmd
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
 
-  系统会提示你确认更改，输入 Y 确认。
 
-  之后再次尝试激活 Python 虚拟环境即可！
+之后再次尝试激活 Python 虚拟环境即可！
+
+--
+
+https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies
