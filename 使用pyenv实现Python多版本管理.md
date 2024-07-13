@@ -223,7 +223,7 @@ pyenv global system
 如果在实际项目中不想使用全局默认版本也可以在项目根目录使用 local 命令设置项目级别 python 版本，示例：
 
 ```bash
-pyenv local 3.12.4
+pyenv local 3.10.11
 ```
 
 之后会在项目根目录下生成一个 .python-version 文件，该文件作用与 $PYENV_HOME/version 文件一样，不给过优先级更高！
@@ -231,14 +231,16 @@ pyenv local 3.12.4
 之后可以直接在项目根目录下执行 python 命令验证：
 
 ```bash
+# 项目根目录
 $ python -V
 Python 3.10.11
 
+# 退出项目根目录
 $ pyenv.bat versions
-* 3.10.11
+  3.10.11
   3.11.9
   3.12.4
-  3.8.10
+* 3.8.10
 ```
 
 想要取消项目级别 python 版本可以执行如下命令或直接删除 .python-version 文件：
