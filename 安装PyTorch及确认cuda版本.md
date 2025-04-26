@@ -3,11 +3,11 @@
 
 哪有这么麻烦！直接在命令终端中执行 `nvidia-smi` 命令即可！以 Windows 为例：
 
-![show-cuda-version.png](http://snic88335.hd-bkt.clouddn.com/cuda-version/show-cuda-version.png)
+![show-cuda-version.png](https://ituknown.cn/python-media/cuda-version/show-cuda-version.png)
 
 红框中就是当前机器 cuda 版本，我的是 12.4，之后直接到 pytorch 官网（[https://pytorch.org/get-started/locally/](https://pytorch.org/get-started/locally/)）下载该 cuda 对应安装版本即可：
 
-![install-PyTorch.png](http://snic88335.hd-bkt.clouddn.com/cuda-version/install-PyTorch.png)
+![install-PyTorch.png](https://ituknown.cn/python-media/cuda-version/install-PyTorch.png)
 
 在终端中输入安装命令回车就完事了：
 
@@ -26,7 +26,7 @@ print("CUDA Available:", torch.cuda.is_available())
 # 如果有 GPU，查看当前设备
 if torch.cuda.is_available():
     print("Device Name:", torch.cuda.get_device_name(0))
-    
+
     # 查看可用 GPU 的数量
     print(torch.cuda.device_count())
 
