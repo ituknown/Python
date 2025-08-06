@@ -70,7 +70,6 @@ Get-ExecutionPolicy
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-
 之后再次尝试激活 Python 虚拟环境即可！
 
 --
