@@ -28,8 +28,8 @@ eval "$(pyenv init -)"
 $ pyenv help
 ```
 
-| **注意**                 |
-| :--------------------- |
+| **注意**                                     |
+| :------------------------------------------- |
 | 安装位置需要根据自身情况修改，请勿拿来主义！ |
 
 ## Windows 安装
@@ -77,8 +77,8 @@ See `pyenv help <command>' for information on a specific command.
 For full documentation, see: https://github.com/pyenv-win/pyenv-win#readme
 ```
 
-| **注意**                 |
-| :--------------------- |
+| **注意**                                     |
+| :------------------------------------------- |
 | 安装位置需要根据自身情况修改，请勿拿来主义！ |
 
 # 升级 pyenv
@@ -111,7 +111,45 @@ $ pyenv version
 3.10.11
 ```
 
-# 安装指定 python 版本
+# 列出所有可用版本
+
+```bash
+$ pyenv install -l
+
+...
+3.10.7
+3.10.8
+3.10.9
+3.10.10
+3.10.11
+3.11.0a1
+3.11.0a2
+pypy3.11-7.3.20
+pyston-2.2
+...
+```
+
+该命令会将测试版以及其他发行版（如 anaconda/miniconda）都列出来。如果只想展示 python 官方正式版本，可以使用 grep 过滤下：
+
+```bash
+# 只显示稳定的 Python 正式版本
+$ pyenv install -l | grep -E "^ +[0-9]+\.[0-9]+\.[0-9]+$"
+
+# 显示所有 Python 版本（排除其他发行版）
+$ pyenv install -l | grep -E "^ +[0-9]+\.[0-9]+" | grep -v -E "(dev|rc|a|b)"
+```
+
+推荐直接设置 alias 命令：
+
+```bash
+# 只显示稳定的 Python 正式版本
+alias pyenv-stable-versions='pyenv install -l | grep -E "^ +[0-9]+\.[0-9]+\.[0-9]+$"'
+
+# 显示所有 Python 版本（排除其他发行版）
+alias pyenv-all-versions='pyenv install -l | grep -E "^ +[0-9]+\.[0-9]+" | grep -v -E "(dev|rc|a|b)"'
+```
+
+# 安装指定版本
 
 在安装之前可以先使用 `-l` 参数输出有哪些可用版本：
 
@@ -178,7 +216,31 @@ $ tree .
     └─3.8.10
 ```
 
-# 设置系统默认 python 版本
+# 卸载指定版本
+
+先查询系统已安装的版本：
+
+```bash
+$ pyenv versions
+  system
+* 3.10.14
+  3.11.9
+  3.12.11
+```
+
+将不需要的卸载掉：
+
+```bash
+$ pyenv uninstall 3.11.9
+
+$ pyenv versions
+  system
+* 3.10.14
+  3.10.20
+  3.12.11
+```
+
+# 设置系统默认版本
 
 设置全局默认版本有两种方式，使用 global 命令或直接修改 $PYENV_HOME/version 文件。
 
@@ -218,7 +280,7 @@ pyenv global system
 
 更多高级用法可以查看说明文档：[https://github.com/pyenv-win/pyenv-win/blob/master/docs/installation.md#git-commands](https://github.com/pyenv-win/pyenv-win/blob/master/docs/installation.md#git-commands)
 
-# 设置项目级别 python 版本
+# 设置项目级别版本
 
 如果在实际项目中不想使用全局默认版本也可以在项目根目录使用 local 命令设置项目级别 python 版本，示例：
 
